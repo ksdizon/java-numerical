@@ -9,13 +9,12 @@ public class FunctionParser {
         
         StringBuilder stb = new StringBuilder();
 
-        // remove whitespace
+        // remove all whitespace
         s = s.replaceAll("\\s", "");
-
-        // iterate through string
-        char currChar;
         
+        // iterate through string
         int i = 0;
+        char currChar;
         while (i < s.length()) {
             currChar = s.charAt(i);
             if (currChar == '^') {
@@ -29,8 +28,6 @@ public class FunctionParser {
                 if (i == s.length()) {
                     break;
                 }
-            } else if (currChar == '+') {
-                stb.append('+'); 
             } else if (currChar == 'x') {
                 int next = i + 1;
                 if (i == s.length()-1) {
@@ -45,7 +42,6 @@ public class FunctionParser {
         }
         String output = stb.toString();
         return(output);
-        // 4x^3-6x^2+7x-2.3
     }
 
     public static int findExponentEndIndex(int currentIndex, String s) {
@@ -55,6 +51,7 @@ public class FunctionParser {
         while (i < s.length()) {
             curr = s.charAt(i);
             switch (curr) {
+                // return if an operator is encountered
                 case '+':
                 case '-':
                 case '*':

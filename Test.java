@@ -27,23 +27,27 @@ public class Test {
         
         int i = 0;
         while (i < s.length()) {
-            System.out.println(stb);
             currChar = s.charAt(i);
-
             if (currChar == '^') {
                 // Find exponent value
                 int endIndex = findExponentEndIndex(i, s);
                 String exponent = s.substring(i+1, endIndex);
-                stb.append("Math.pow(x, " + exponent + ")");
+                stb.append("*Math.pow(x, " + exponent + ")");
 
-                i = endIndex;
+                i = endIndex-1;
                 // Check if last
                 if (i == s.length()) {
                     break;
                 }
-
+            } else if (currChar == '+') {
+                stb.append('+'); 
             } else if (currChar == 'x') {
-                stb.append("*");
+                int next = i + 1;
+                if (i == s.length()-1) {
+                    stb.append("x");
+                } else if (s.charAt(next) != '^') {
+                    stb.append('x');
+                }
             } else {
                 stb.append(currChar);
             }

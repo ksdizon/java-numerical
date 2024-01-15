@@ -1,6 +1,47 @@
-public class FunctionParser {
-    public static void plugX(float xValue) {
+import java.util.Stack;
 
+public class FunctionParser {
+    public static float evaluateFunction(String function, String xValue) {
+        Stack<Character> operations = new Stack<>();
+        Stack<String> values = new Stack<>();
+        StringBuilder valueBuilder = new StringBuilder();
+        char current;
+        float answer = 0;
+
+        function = function.replaceAll("x", xValue);
+
+        int i = 0;
+        while (i < function.length()) {
+            current = function.charAt(i);
+            // If operator is encountered
+            if (!Character.isLetterOrDigit(current)) {
+                // Add the number to the values stack
+                values.push(valueBuilder.toString());
+                valueBuilder.setLength(0);
+
+                // Add the operator
+                // Check first if exponent
+                if (current == '^') {
+                    operations.push(current);
+                    int exponentEndIndex = findExponentEndIndex(i, function);
+                    values.push(function.substring(i+1, exponentEndIndex));
+                } else {
+                    
+                }
+
+            } else {
+                valueBuilder.append(current);
+            }
+            i++;
+        }
+        System.out.println(operations);
+        System.out.println(values);
+        return answer;
+    }
+
+    public static String plugX(String s, String xValue) {
+        s.replace("s", xValue);
+        return s;
     }
 
     public static String convertExponent(String s) {
